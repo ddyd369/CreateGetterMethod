@@ -1,18 +1,27 @@
 //
 //  SourceEditorCommand.m
-//  CreateGetterMethodExtension
+//  createGetter
 //
-//  Created by 赵丹 on 2016/10/1.
-//  Copyright © 2016年 赵丹. All rights reserved.
+//  Created by 赵丹 on 2016/9/30.
+//  Copyright © 2016年 microfastup. All rights reserved.
 //
+/*
+ *第一版先实现基本功能.
+ *第二步, 使它不会重复生成getter方法
+ *3.对不同的对象类型分别定制生成的代码
+ *4.生成的代码可以指定样式. 也就是将样式作为参数抛出去. 可以在外部定制.
+ *5.模仿Eclipse. 点击生成setter. getter. 先弹出对话框. 由用户选择生成那些属性的setter. getter方法
+ *6.找到当前编辑器光标所在行. 将生成的setter getter 从光标所在行插入.
+ *7.setter getter 方法类型可以在对话框中选择.  例如. button[UIButton alloc] init]; 还是[UIButton buttonTypexxxx...];
+ */
 
 #import "SourceEditorCommand.h"
+#import <Cocoa/Cocoa.h>
 
 @interface SourceEditorCommand ()
 
 @property (nonatomic, assign) NSInteger predicate;
 @property (nonatomic, strong) NSMutableArray *indexsArray;
-
 
 @end
 
@@ -59,9 +68,8 @@
         }
     }
     completionHandler(nil);
-    
-    completionHandler(nil);
 }
+
 
 - (NSMutableArray *)makeResultStringArray
 {
@@ -103,7 +111,7 @@
     if ([pre evaluateWithObject:str]) {
         //这是一个property.
         if (![str containsString:@"IBOutlet"] && ![str containsString:@"^"] && ![str containsString:@"//"]) {
-            //不是IBOutLet或者blcok  也就是说它是一个需要生成getter方法的属性.
+            //不是IBOutLet或者blcok  也就是说它是一个需要声场getter方法的属性.
             NSString *category = @"";
             NSString *name = @"";
             

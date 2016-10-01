@@ -1,9 +1,9 @@
 //
 //  AppDelegate.m
-//  CreateGetterMethod
+//  xcodeExtensionTest
 //
-//  Created by 赵丹 on 2016/10/1.
-//  Copyright © 2016年 赵丹. All rights reserved.
+//  Created by 赵丹 on 2016/9/30.
+//  Copyright © 2016年 microfastup. All rights reserved.
 //
 
 #import "AppDelegate.h"
